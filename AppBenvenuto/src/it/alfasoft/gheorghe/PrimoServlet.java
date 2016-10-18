@@ -27,19 +27,28 @@ public class PrimoServlet extends HttpServlet {
 		
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		PrintWriter writer = response.getWriter();
 		
 		response.setContentType("text/html");
-		HttpSession session = request.getSession(); 
-		
-		
-		
-		if (password.equals("123")){
-			
+		HttpSession session = request.getSession();
+
+
+		if (password.equals("123")) {
+			//qui ricchiamo una seconda servlet che mi gestisce la stampa del Benvenuto			
 			RequestDispatcher rd = request.getRequestDispatcher("Servlet2");
-			rd.forward(request, response);
-			
+			writer.println("Loghin eseguito ");
+//con questo codice permeto il collegamento con la mia seconda Servlet(Servlet2)			
+			//rd.forward(request, response); //quando facciamo forward i dati della prima servlet muoiono
+			rd.include(request, response);
+
 		} else {
-			response.sendRedirect("index.html");
+
+			RequestDispatcher rd2 = request.getRequestDispatcher("login.html");
+
+			
+		
+			writer.println("Username o password sono errate");
+			rd2.forward(request, response);
 		}
 
 	}
@@ -54,14 +63,21 @@ public class PrimoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (password.equals("123")) {
-//			response.sendRedirect("Benvenuto.html");
-//			session.setAttribute("usernameSalvatoSession", name);
-//			session.setAttribute("usernameSalvatoSession", password);
-			
+			//qui ricchiamo una seconda servlet che mi gestisce la stampa del Benvenuto			
 			RequestDispatcher rd = request.getRequestDispatcher("Servlet2");
-			rd.forward(request, response);
+
+//con questo codice permeto il collegamento con la mia seconda Servlet(Servlet2)			
+			rd.forward(request, response); //quando facciamo forward i dati della prima servlet muoiono
+			
+
 		} else {
-			response.sendRedirect("index.html");
+
+			RequestDispatcher rd2 = request.getRequestDispatcher("login.html");
+
+			
+			PrintWriter writer = response.getWriter();
+			writer.println("<h3 style="+"color:red"+">"+"Username o password sono errate</h3>");
+			rd2.include(request, response);
 		}
 	}
 
