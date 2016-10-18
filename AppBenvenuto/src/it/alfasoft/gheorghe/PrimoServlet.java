@@ -24,36 +24,14 @@ public class PrimoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	//qui sto dicendo al browser che sto scrivendo un file .html	
-		response.setContentType("text/html");
-	
-	//qui prendo i dati dal input della pagina login.html
-		String name = request.getParameter("username");
-	
-	//dicchiaro una sessione e un context	
-		HttpSession session = request.getSession();
-		ServletContext context = request.getServletContext();
-	//controllo se il campo e valido 	
-		if (!name.isEmpty() && name != null) {
-		// questo serve per salvare il cookie del utente e lo ricorda per 30
-		// minuti di default
-			session.setAttribute("usernameSalvatoSession", name);
-		//context vive per tutta la vita dell'aplicazione.	
-			context.setAttribute("usernameSalvatoContext", name);
+
+		String password = request.getParameter("password");
+		
+		if (password.equals("123")){
+			response.sendRedirect("Benvenuto.html");
+		} else {
+			response.sendRedirect("index.html");
 		}
-//dicchiaro il writer che ci permete di stampare		
-			PrintWriter writer1 = response.getWriter();
-//	qui stampa dar writer
-			writer1.println("Ciao " +name+ "<br>" );
-//qui stampo la session 
-		writer1.println("Ciao da session " +session.getAttribute("usernameSalvatoSession") +"<br>" );
-//qui stampo da context 		
-		writer1.println("Ciao da Context " +context.getAttribute("usernameSalvatoContext") +"<br>" );
-		
-//qui rispondo con la servlet con servlet in html		
-		response.setContentType("text/html");
-		
-//torna indietro un PrintWriter		
 
 	}
 	
@@ -62,17 +40,12 @@ public class PrimoServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		response.setContentType("text/html");
-		PrintWriter writer1 = response.getWriter();
 
 		if (password.equals("123")) {
-			writer1.println("<h1>" + "Benvenuto " + username+ " hai la password " + password + "</h1>");
-
+			response.sendRedirect("Benvenuto.html");
 		} else {
-			response.sendRedirect("login.html");
+			response.sendRedirect("index.html");
 		}
 	}
-
-	
 
 }
