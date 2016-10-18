@@ -31,8 +31,7 @@ public class PrimoServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
-
-
+  
 		if (password.equals("123")) {
 			//qui ricchiamo una seconda servlet che mi gestisce la stampa del Benvenuto			
 			RequestDispatcher rd = request.getRequestDispatcher("Servlet2");
