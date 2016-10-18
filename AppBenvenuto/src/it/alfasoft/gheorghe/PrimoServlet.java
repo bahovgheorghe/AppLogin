@@ -3,6 +3,7 @@ package it.alfasoft.gheorghe;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,11 +25,19 @@ public class PrimoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 		
+		response.setContentType("text/html");
+		HttpSession session = request.getSession(); 
+		
+		
+		
 		if (password.equals("123")){
-			response.sendRedirect("Benvenuto.html");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Servlet2");
+			rd.forward(request, response);
+			
 		} else {
 			response.sendRedirect("index.html");
 		}
@@ -38,11 +47,19 @@ public class PrimoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String username = request.getParameter("username");
+		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		
+		response.setContentType("text/html");
+		HttpSession session = request.getSession();
 
 		if (password.equals("123")) {
-			response.sendRedirect("Benvenuto.html");
+//			response.sendRedirect("Benvenuto.html");
+//			session.setAttribute("usernameSalvatoSession", name);
+//			session.setAttribute("usernameSalvatoSession", password);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Servlet2");
+			rd.forward(request, response);
 		} else {
 			response.sendRedirect("index.html");
 		}
