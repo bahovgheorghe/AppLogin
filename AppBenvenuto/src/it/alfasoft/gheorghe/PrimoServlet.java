@@ -39,7 +39,7 @@ public class PrimoServlet extends HttpServlet {
 			writer.println("Loghin eseguito ");
 //con questo codice permeto il collegamento con la mia seconda Servlet(Servlet2)			
 			//rd.forward(request, response); //quando facciamo forward i dati della prima servlet muoiono
-			rd.include(request, response);
+			rd.forward(request, response);
 
 		} else {
 
@@ -48,7 +48,7 @@ public class PrimoServlet extends HttpServlet {
 			
 		
 			writer.println("Username o password sono errate");
-			rd2.forward(request, response);
+			rd2.include(request, response);
 		}
 
 	}
